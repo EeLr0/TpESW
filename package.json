@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "pretest": "echo 'Skipping database reset before running tests'",
-    
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "start": "nodemon app.js",
     "seed": "npx sequelize-cli db:seed:all",
-    "exec":" executar npm run seed num terminal separado para colocar os seeds",
+    "exec": " executar npm run seed num terminal separado para colocar os seeds",
     "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create ",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create "
-
+    
   },
   "author": "",
   "license": "ISC",

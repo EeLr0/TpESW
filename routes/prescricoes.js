@@ -4,9 +4,9 @@ const presController = require('../controllers/prescricoes');
 
 const router = express.Router();
 
-router.get('/prescricoes/:cni', presController.getPrescricaoByCNI);
+router.get('/prescricoes/get-cni', presController.getPrescricaoByCNI);
 
-router.get('/prescricoes/:nomePaciente', presController.getPrescricaoByNome);
+router.get('/prescricoes/get-nome', presController.getPrescricaoByNome);
 
 router.post('/criar-prescricao', presController.postcriarPrescricao);
 

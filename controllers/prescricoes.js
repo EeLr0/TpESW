@@ -2,9 +2,9 @@ const Prescricao = require('../models/prescricao');
 
 
 exports.getPrescricaoByCNI = (req, res, next) =>{
-    const cni = req.params.cni;
+    const cni = req.query.cni;
     Prescricao.findAll({where: {
-        cniPaciente: cni
+        cni: cni
     }})
     .then((prescricoes) =>{
         res.status(200).json({data:prescricoes});
@@ -15,9 +15,9 @@ exports.getPrescricaoByCNI = (req, res, next) =>{
 };
 
 exports.getPrescricaoByNome = (req, res, next) =>{
-    const nomePaciente = req.params.nomePaciente;
+    const nome = req.query.nomePaciente;
     Prescricao.findAll({where: {
-        nomePaciente: nomePaciente 
+        nome: nome 
     }})
     .then((prescricoes) =>{
         res.status(200).json({data:prescricoes});
@@ -28,15 +28,13 @@ exports.getPrescricaoByNome = (req, res, next) =>{
 };
 
 exports.postcriarPrescricao = (req, res, next) =>{
-    const medicamentos = req.params.medicamentos;
-    const nomeMedico = req.params.nomeMedico;
-    const nomePaciente = req.params.nomePaciente;
-    const cni = req.params.cni
-
+    const medicamentos = req.body.medicamentos;
+    const nome = req.body.nome;
+    const cni = req.body.cni
+    console.log(req.body)
     Prescricao.create({
         medicamentos: medicamentos,
-        nomeMedico: nomeMedico,
-        nomePaciente: nomePaciente,
+        nome: nome,
         cni: cni
     })
     .then((resultado) => {
@@ -49,22 +47,18 @@ exports.postcriarPrescricao = (req, res, next) =>{
 }
 
 exports.postEditPrescricao = (req, res, next) => {
-    const medicamentos = req.params.medicamentos;
-    const nomeMedico = req.params.nomeMedico;
-    const nomePaciente = req.params.nomePaciente;
-    const cni = req.params.cni
+    const id = req.body.id
+    const medicamentos = req.body.medicamentos;
+
   
-    Product.findByPk(prodId)
+    Prescricao.findByPk(id)
     .then(prescricao => {
-        prescricao.medicamentos = medicamentos,
-        prescricao.nomeMedico = nomeMedico,
-        prescricao.nomePaciente = nomePaciente,
-        prescricao.cni = cni;
+        prescricao.medicamentos = medicamentos;
       return prescricao.save();
     })
     .then(resultado => {
       console.log('prescricao actualizada');
-      res.status(200).json({produto: resultado})
+      res.status(200).json({prescricao: resultado})
     })
     .catch(erro => {
         res.status(500).json({error: 'Internal server error'})

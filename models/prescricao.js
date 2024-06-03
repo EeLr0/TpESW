@@ -13,6 +13,9 @@ const Prescricao = meusequelize.define('prescricao', {
     allowNull: false,
   },
 
+  nome: Sequelize.STRING,
+  cni: Sequelize.STRING
+
 },
 {
   freezeTableName: true,

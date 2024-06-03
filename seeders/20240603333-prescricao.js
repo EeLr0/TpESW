@@ -4,17 +4,19 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('prescricao', [
       {
-        medicamentos: 'Paracetamol, Ibuprofeno', // Example of multiple medicines separated by commas
+        medicamentos: 'Phenergan, Ibuprofeno', 
+        nome: 'EeLr0',
+        cni: '123456789',
       },
       {
-        medicamentos: 'Amoxicilina, Tose',
+        medicamentos: 'Amoxicilina',
+        nome: 'Maria Santos',
+        cni: '987654321',
       },
-      // Add more prescription objects as needed
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Remove all data inserted by the up function
     await queryInterface.bulkDelete('prescricoes', null, {});
   }
 };
