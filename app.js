@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const { exec } = require('child_process');
 
 const userRoutes = require('./routes/users');
 const prescricoesRoute = require('./routes/prescricoes');
@@ -13,6 +14,19 @@ const Prescricao = require('./models/prescricao');
 const Paciente = require('./models/paciente');
 const Medico = require('./models/medico');
 
+function runSeedScript() {
+    return new Promise((resolve, reject) => {
+      exec('npx sequelize-cli db:seed:all', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error executing seed script: ${error}`);
+          reject(error);
+        }
+        console.log(`Seed script output: ${stdout}`);
+        console.error(`Seed script errors: ${stderr}`);
+        resolve();
+      });
+    });
+  }
 
 const app = express();
 
@@ -26,23 +40,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(userRoutes);
 app.use(prescricoesRoute);
 
-/*
-Prescricao.belongsTo(Medico, { foreignKey: 'nomeMedico', targetKey: 'nome', as: 'medico' });
-Medico.hasMany(Prescricao, { foreignKey: 'nomeMedico', sourceKey: 'nome', as: 'prescricoes' });
 
-Prescricao.belongsTo(Paciente, { foreignKey: 'nomePaciente', targetKey: 'nome', as: 'pacienteNome' });
-Prescricao.belongsTo(Paciente, { foreignKey: 'cniPaciente', targetKey: 'cni', as: 'pacienteCni' });
-Paciente.hasMany(Prescricao, { foreignKey: 'nomePaciente', sourceKey: 'nome', as: 'prescricoesNome' });
-Paciente.hasMany(Prescricao, { foreignKey: 'cniPaciente', sourceKey: 'cni', as: 'prescricoesCni' });
-*/
 app.use(errorController.getError404);
 
 conexaoBD.authenticate()
 .then( () => {
     console.log('succesful conection');
-    conexaoBD.sync()
+    conexaoBD.sync({force: true})
     .then( () => {
         console.log('Modelos sincronizados com sucesso!');
+        setTimeout(async () => {
+            try {
+              await runSeedScript();
+              console.log('Seed script completed successfully.');
+            } catch (err) {
+              console.error('Seed script failed:', err);
+            }
+          }, 5000); // Delay of 5 seconds (5000 milliseconds)
         app.listen(3002);
         
     })
@@ -55,3 +69,5 @@ conexaoBD.authenticate()
     console.log(erro.message);
     process.exit(1);
 });
+
+module.exports = app;

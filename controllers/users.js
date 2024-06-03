@@ -45,25 +45,29 @@ exports.getPaciente = (req, res, next) => {
 } */
 
 exports.postcriarMedico = (req, res, next) =>{
-    const nome = req.params.nome;
-    const especialidade = req.params.especialidade;
-    const contacto = req.params.contacto;
-    
+    const nome = req.body.nome;
+    const especialidade = req.body.especialidade;
+    const contacto = req.body.contacto;
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(req.body);
     Medico.create({
         nome: nome,
         especialidade: especialidade,
-        contacto: contacto
+        contacto: contacto,
+        email: email,
+        password: password
     })
     .then((resultado) => {
-        console.log('prescricao criada');
-        res.status(200).json({prescricao: resultado})
+        console.log('medico criado');
+        res.status(200).json({medico: resultado})
       })
       .catch(erro => {
         res.status(500).json({error: 'Internal server error'})
     })
 }
 
-exports.postcriarPaciente = (req, res, next) =>{
+/*exports.postcriarPaciente = (req, res, next) =>{
     const nome = req.params.nome;
     const morada = req.params.morada;
     const datanascimento = req.params.datanascimento
@@ -86,10 +90,10 @@ exports.postcriarPaciente = (req, res, next) =>{
       .catch(erro => {
         res.status(500).json({error: 'Internal server error'})
     })
-}
+}*/
 
 
-exports.postEditPaciente = (req, res, next) => {
+/*exports.postEditPaciente = (req, res, next) => {
     const nome = req.params.nome;
     const morada = req.params.morada;
     const datanascimento = req.params.datanascimento
@@ -114,10 +118,10 @@ exports.postEditPaciente = (req, res, next) => {
     .catch(erro => {
         res.status(500).json({error: 'Internal server error'})
     })
-}
+}*/
       
 
-exports.postEditMedico = (req, res, next) => {
+/*exports.postEditMedico = (req, res, next) => {
     const nome = req.params.nome;
     const especialidade = req.params.especialidade;
     const contacto = req.params.contacto;
@@ -137,4 +141,4 @@ exports.postEditMedico = (req, res, next) => {
     .catch(erro => {
         res.status(500).json({error: 'Internal server error'})
     })
-}
+}*/

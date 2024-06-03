@@ -8,11 +8,21 @@ const Medico = meusequelize.define('medico', {
     allowNull: false,
     primaryKey: true
   }, 
-  nome: Sequelize.STRING, 
+  nome:{
+    type: Sequelize.STRING,
+    allowNull: false
+  } , 
   
-  especielidade: Sequelize.STRING,
+  especialidade:{
+    type: Sequelize.STRING,
+    allowNull: false
+  } ,
 
-  contacto: Sequelize.INTEGER
+  contacto: Sequelize.INTEGER,
+
+  email: Sequelize.STRING,
+
+  password: Sequelize.STRING
 },
 {
   freezeTableName: true,

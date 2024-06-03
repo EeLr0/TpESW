@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "",
+    "database": "trabalho ESW",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": "5433"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "",
+    "database": "trabalho ESW",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": "5433"
+  },
+  "production": {
+    "username": "eelr0",
+    "password": "wqSclX97uFGzTOjHTHPbdaxhohUbigLO",
+    "host": "dpg-cpatjrsf7o1s73amqmt0-a.frankfurt-postgres.render.com",
+    "database": "eelr0",
+    "dialectOptions": {
+      "ssl": true
+    },
+    "dialect": "postgres"
+  }
+}
