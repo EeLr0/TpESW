@@ -1,12 +1,12 @@
 const Medico = require('../models/medico');
 
-const Paciente = require('../models/prescricao');
+const Paciente = require('../models/paciente');
 
 //const Farmaceutico = require('../controllers/farmaceutico')
 
 
 exports.getMedico = (req, res, next) => {
-    const nome = req.params.nome;
+    const nome = req.query.nome;
     Medico.findOne({where: {
         nome: nome 
     }})
@@ -14,12 +14,13 @@ exports.getMedico = (req, res, next) => {
         res.status(200).json({data:medico});
     })
     .catch(erro => {
+        console.log(nome)
         res.status(500).json({error: 'Internal server error'})
     })
 }
 
 exports.getPaciente = (req, res, next) => {
-    const nome = req.params.nome;
+    const nome = req.query.nome;
     Paciente.findOne({where: {
         nome: nome 
     }})
@@ -67,15 +68,15 @@ exports.postcriarMedico = (req, res, next) =>{
     })
 }
 
-/*exports.postcriarPaciente = (req, res, next) =>{
-    const nome = req.params.nome;
-    const morada = req.params.morada;
-    const datanascimento = req.params.datanascimento
-    const contacto = req.params.contacto;
-    const cni = req.params.cni
-    const inps = req.params.inps
-    
-    Medico.create({
+exports.postcriarPaciente = (req, res, next) =>{
+    const nome = req.body.nome;
+    const morada = req.body.morada;
+    const datanascimento = req.body.datanascimento;
+    const contacto = req.body.contacto;
+    const cni = req.body.cni;
+    const inps = req.body.inps;
+    console.log(req.body)
+    Paciente.create({
         nome: nome,
         morada: morada,
         datanascimento: datanascimento,
@@ -84,14 +85,14 @@ exports.postcriarMedico = (req, res, next) =>{
         inps: inps
     })
     .then((resultado) => {
-        console.log('prescricao criada');
-        res.status(200).json({prescricao: resultado})
+        console.log('paciente criado');
+        res.status(200).json({paciente: resultado})
       })
       .catch(erro => {
         res.status(500).json({error: 'Internal server error'})
     })
-}*/
 
+}
 
 /*exports.postEditPaciente = (req, res, next) => {
     const nome = req.params.nome;

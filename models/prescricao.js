@@ -12,30 +12,6 @@ const Prescricao = meusequelize.define('prescricao', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  /*nomeMedico: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    references: {
-      model: 'medico', 
-      key: 'nome'
-    }
-  },*/
-  /*nomePaciente: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    references: {
-        model: 'paciente',
-        key: 'nome'
-    }
-  },*/
-  /*cniPaciente: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    references: {
-        model: 'paciente',
-        key: 'cni'
-    }
-  }*/
 
 },
 {

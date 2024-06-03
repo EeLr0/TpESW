@@ -56,7 +56,7 @@ conexaoBD.authenticate()
             } catch (err) {
               console.error('Seed script failed:', err);
             }
-          }, 5000); // Delay of 5 seconds (5000 milliseconds)
+          }, 1000); // Delay of 5 seconds (5000 milliseconds)
         app.listen(3002);
         
     })
