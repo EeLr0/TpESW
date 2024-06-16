@@ -6,13 +6,14 @@ const { exec } = require('child_process');
 
 const userRoutes = require('./routes/users');
 const prescricoesRoute = require('./routes/prescricoes');
-
+const autenticarRoute = require('./routes/auntenticar');
 const errorController = require('./controllers/error');
 const conexaoBD = require('./util/database');
 
 const Prescricao = require('./models/prescricao');
 const Paciente = require('./models/paciente');
 const Medico = require('./models/medico');
+const utz = require('./schema/schema');
 
 function runSeedScript() {
     return new Promise((resolve, reject) => {
@@ -29,6 +30,7 @@ function runSeedScript() {
   }
 
 const app = express();
+const connectDButz = require('./util/utzdbconection')
 
 //app.use(cors());
 
@@ -39,9 +41,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(userRoutes);
 app.use(prescricoesRoute);
-
+app.use(autenticarRoute);
 
 app.use(errorController.getError404);
+
+connectDButz();
+
 
 conexaoBD.authenticate()
 .then( () => {

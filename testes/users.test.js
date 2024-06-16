@@ -5,13 +5,16 @@ const sequelize = require('../util/database');
 Medico = require('../models/medico.js')
 
 beforeAll(async () => {
-    
-    await sequelize.sync({force:true});
-});
-
-afterAll(async () => {
+    try {
+      await sequelize.sync({ force: true });
+    } catch (error) {
+      console.error('Error during synchronization:', error);
+    }
+  });
+  
+  afterAll(async () => {
     await sequelize.close();
-});
+  });
 
 const medico = {
     nome: "john doe",

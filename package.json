@@ -11,13 +11,16 @@
     "exec": " executar npm run seed num terminal separado para colocar os seeds",
     "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create ",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create "
-    
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
     "nodemon": "^3.1.0",
     "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0"
